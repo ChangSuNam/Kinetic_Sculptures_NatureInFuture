@@ -31,14 +31,32 @@ In order to make two fish rotate 360 degrees with stepper motor, I cut the tip o
 In order to mimic movement of fish swimming, for the bigger fish, its tail was linked to a servo motor with a string:
 ![IMG_0878 HEIC](https://user-images.githubusercontent.com/25335750/162122388-120bcc2a-2fd8-4986-b401-5e2e2aa61001.jpg)
 ![IMG_0879 HEIC](https://user-images.githubusercontent.com/25335750/162122415-6c0ca3fd-bb89-4fa3-acdb-7096b4f088b7.jpg)
-Its body was taped to a straw, which was put in a hole of the enclosure box. Since it was not taped or tied to anything, as the servo motor moves, the fish moves freely.
+Its body was taped to a straw, which was put in a hole of the enclosure box. Since it was not taped or tied to anything, as the servo motor moves, the fish moves freely. In the code that can be found at: https://github.com/sitongfX/NatureInFuture/blob/main/NAM_fish/NAM_fish.ino , I set the servo motor to quickly move from 0 to 200, then reset to 0, in a loop:
+ 
+                for(int i = 0; i<2000;i++){
+                 //servo
+                  state = state + 10;
+                  myservo.write(state);
+                
+                   //stepper
+                  moveSteps(true, 5, 3);
+                  if(state == 200){
+                    state = 0;
+                    myservo.write(state);
+                  }
+                }
+                
+
+This would mimic how a fish's tail moves while it swims.
+
 
 To visualize water, the enclosure was covered with blue paper:
 ![IMG_0877 HEIC](https://user-images.githubusercontent.com/25335750/162123727-2e825378-9963-4aef-acf4-f56366302f9b.jpg)
 
 ### Installation
 
-As a class, we all installed the sculptures and ran our motors simultaneously. This was possible with help of webAPI, provided by Professor Santlucito. More can be found at https://github.com/mbennett12/kinetic-sculpture-webapi 
+As a class, we all installed the sculptures and ran our motors simultaneously. This was possible with help of webAPI, provided by Professor Santlucito: https://github.com/mbennett12/kinetic-sculpture-webapi 
+
 
 On a sheet of blue paper, 4 of us installed our sculptures:
 ![IMG_0885 HEIC](https://user-images.githubusercontent.com/25335750/162140876-9e1ec56e-d979-448c-b64e-6e44c44f263d.jpg)
@@ -49,7 +67,7 @@ On a sheet of blue paper, 4 of us installed our sculptures:
 #### Technical difficulties
 When I was writing the code, I was testing it without the web API, and the code to run the motor in void loop(){} ran without any delay. However, transferring this snippet of code to the provided code with web API and HTTP requests, there were delays and motors moved with some lags. This was fixed with running the code in a for loop for many times.
 
-The details of the code can be found at the combined git repo: https://github.com/sitongfX/NatureInFuture
+The details of the code for each sculptures and the ReadMe file can be found at the combined git repo: https://github.com/sitongfX/NatureInFuture
 
 Our sculptures in action can be watched at: https://youtu.be/s9gXnl4QDos
 
